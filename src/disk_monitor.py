@@ -1,3 +1,10 @@
+"""
+This module provides functions for monitoring disk metrics.
+
+Functions:
+    get_dick_info(): Returns a dictionary containing information about disk utilization.
+"""
+
 try:
     import psutil
     import shutil
@@ -8,15 +15,18 @@ except ImportError as import_error:
 
 def get_disk_info():
     """
-    This function gets information on the disks, such as each partition and their usage.
-    
-    Error handling: access denial and general exceptions
-    
-    Arguments: None
+    Returns a dictionary containing information about disk utilization.
 
-    Returns: Dictionary with disk type and usage information.
-    
-    Return Type: Dict
+    Returns:
+        dict: A "Disk Usage" dictionary containing keys representing mount points (e.g., 'C:\\', '/dev/sda1')
+              and values containing dictionaries with the following metrics:
+              - device: The device name associated with the mount point.
+              - fstype: The file system type (e.g., NTFS, ext4).
+              - opts: Mount options (e.g., rw,fixed).
+              - total: Total disk size in bytes.
+              - used: Used disk space in bytes.
+              - free: Free disk space in bytes.
+              - percent: Percentage of disk space used (0.0 to 100.0).
     """
     try:
         disk_partitions = psutil.disk_partitions()
